@@ -26,6 +26,16 @@
 		<script src="bundle.js"></script>		
 		<title>IDE</title>
 		<style type="text/css">
+			*[draggable=true] {
+				  -moz-user-select: none;
+				  -khtml-user-select: none;
+				  -webkit-user-select: none;
+				  user-select: none;
+				  /* Required to make elements draggable in old WebKit */
+				  -khtml-user-drag: element;
+				  -webkit-user-drag: element;
+				  cursor:move;
+			}		
 			.splitbox {
 				left:0px;
 				right:0px;
@@ -170,13 +180,26 @@
 							<pane caption="Test 2"><div>Pane 2</div></pane>
 							<pane caption="Test 3"><div>Pane 3</div></pane>
 						</window>
-						<window><pane caption="Test C"><div>C</div></pane></window>
+						<window><pane caption="Test C"><div>C
+							<div ui-draggable ui-drag-format="application/x-lx-window-pane" ui-drag-data='{"uri":"http://www.aftonbladet.se"}'>Aftonbladet</div>
+						</div></pane></window>
 					</hbox>
 				</vbox>
 			</hbox>	
 		</div>
 		<script type="text/javascript">
-			angular.module('myApp', ['ui.box', 'ui.winwin']);
+			angular.module('myApp', ['ui.box', 'ui.winwin']).run(function(paneResolverService) {
+				console.log(paneResolverService);
+				paneResolverService.addResolver(function(qry) {
+					if(qry.uri) {
+						var parser = document.createElement('a');
+						parser.href = qry.uri;
+						if(parser.protocol === 'http:' || parser.protocol === 'https:') {
+							return angular.element('<pane caption="' + parser.hostname + '"><iframe src="' + qry.uri +'" width="100%" height="100%"></pane>');
+						}
+					}
+				});
+			});
 		</script>
 	</body>
 </html>
