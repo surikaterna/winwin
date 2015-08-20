@@ -12,13 +12,14 @@
   "dependencies": {
     "browserify": "^9.0.3",
     "browserify-shim": "^3.8.3",
+    "dragged": "^0.1.0",
     "watchify": "^2.4.0"
   },
   "browserify": {
     "transform": [
       "browserify-shim"
     ]
-  },  
+  },
   "browserify-shim": {
     "angular": {
       "exports": "global:angular",
@@ -27,5 +28,5 @@
     "jquery": {
       "exports": "$"
     }
-  }  
+  }
 }
