@@ -169,7 +169,7 @@
 		</style>
 	</head>
 	<body>
-		<div class="container-flud">
+		<!--div class="container-flud">
 			<hbox>
 				<window><pane caption="Test A"><div>A</div></pane></window>
 				<vbox>
@@ -178,11 +178,15 @@
 						<window>
 							<pane caption="Test 1"><div>Pane 1</div></pane>
 							<pane caption="Test 2"><div>Pane 2</div></pane>
-							<pane caption="Test 3"><div class="container-fluid">
+							<pane caption="Test 3">
+							<div >
+							<div class="container" style="max-width:320px; width:320px;  display: inline-block;    vertical-align:top; margin: 15px; height:568px; max-height:568px">
 								<div class="row">
-									<div class="col-md-6 col-xs-12">Test</div><div class="col-md-6 col-xs-12">Test2</div>
+									<div class="col-xs-12 col-md-6">Test</div><div class="col-md-6 col-xs-12">Test2</div>
 								</div>
-							</div></pane>
+							</div>
+							</div>
+							</pane>
 						</window>
 						<window><pane caption="Test C"><div>C
 							<div ui-draggable ui-drag-format="application/x-lx-window-pane" ui-drag-data='{"uri":"http://www.aftonbladet.se"}'>Aftonbladet</div>
@@ -190,7 +194,19 @@
 					</hbox>
 				</vbox>
 			</hbox>	
-		</div>
+		</div-->
+		<div class="container-flud">
+			<vbox>
+				<window>
+					<pane caption="Test A"><div>A</div></pane>
+					<pane caption="Test 1"><div>Pane 1</div></pane>
+					<pane caption="Test 2"><div>Pane 2</div></pane>				
+				</window>
+				<window>
+					<pane caption="Test A"><div>A</div></pane>
+				</window>
+			</vbox>
+		</div>		
 		<script type="text/javascript">
 			angular.module('myApp', ['ui.box', 'ui.winwin']).run(function(paneResolverService) {
 				console.log(paneResolverService);
