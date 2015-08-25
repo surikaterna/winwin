@@ -195,7 +195,7 @@
 				</vbox>
 			</hbox>	
 		</div-->
-		<div class="container-flud">
+		<div class="container-fluid">
 			<vbox>
 				<window>
 					<pane caption="Test A"><div>A</div></pane>
@@ -203,7 +203,9 @@
 					<pane caption="Test 2"><div>Pane 2</div></pane>				
 				</window>
 				<window>
-					<pane caption="Test A"><div>A</div></pane>
+					<pane caption="Test A"><div>A</div>
+						<div ui-draggable ui-drag-format="application/x-lx-window-pane" ui-drag-data='{"uri":"http://www.aftonbladet.se"}'>Aftonbladet</div>
+					</pane>
 				</window>
 			</vbox>
 		</div>		
