@@ -1,227 +1,55 @@
+<!DOCTYPE html>
 <html ng-app="myApp">
-	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge;" />	
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<meta charset="utf-8">
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	
-		<!-- JQUERY -->
-		<!--script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script-->
-		<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge;">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta charset="utf-8">
+  <title>IDE</title>
 
-		<!-- ANGULAR -->
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-sanitize.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
-		<script data-require="angular-resource@1.2.14" data-semver="1.2.14" src="http://code.angularjs.org/1.2.14/angular-resource.js"></script>
+  <link rel="stylesheet" href="../lib/splitbox/css/splitbox.css">
+  <link rel="stylesheet" href="../css/winwin.css">
+  <style>
+    body {
+      font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+    }
+  </style>
 
-		<!-- BOOTSTRAP -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-sanitize.min.js"></script>
+  <script src="bundle.js"></script>
 
-		<!-- FONTAWESOME -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <script type="text/javascript">
+    angular.module('myApp', ['ui.winwin']).run(function(paneResolverService) {
+      paneResolverService.addResolver(function(qry) {
+        if (qry.uri) {
+          var parser = document.createElement('a');
+          parser.href = qry.uri;
+          if (parser.protocol === 'http:' || parser.protocol === 'https:') {
+            return angular.element('<pane caption="' + parser.hostname + '"><iframe src="' + qry.uri +'" width="100%" height="100%"></pane>');
+          }
+        }
+      });
+    });
+  </script>
+</head>
 
-		<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-		<script src="bundle.js"></script>		
-		<title>IDE</title>
-		<style type="text/css">
-			*[draggable=true] {
-				  -moz-user-select: none;
-				  -khtml-user-select: none;
-				  -webkit-user-select: none;
-				  user-select: none;
-				  /* Required to make elements draggable in old WebKit */
-				  -khtml-user-drag: element;
-				  -webkit-user-drag: element;
-				  cursor:move;
-			}		
-			.splitbox {
-				left:0px;
-				right:0px;
-				top:0px;
-				bottom: 0px;
-				position: absolute;
-			}
-			.splitter {
-				z-index:1000;
-				background-color: #dedede;
-				box-sizing: border-box;
-				position: absolute;
-			}
-			.splitter.horizontal {
-				cursor: ns-resize;
-				height:1px;
-				width: 100%;
-				top:50%;
-			}
-
-			.splitter.horizontal div {
-				height:5px;
-				margin-top: -2px;
-				width:100%;
-			}			
-
-			.splitter.vertical {
-				cursor: ew-resize;
-				width:1px;
-				height: 100%;
-				left:50%;
-			}
-
-			.splitter.vertical div {
-				width:5px;
-				margin-left: -3px;
-				height:100%;
-			}			
-
-			.splitboxbox {
-				overflow: hidden;
-				position: absolute;
-			}
-			.window {
-				left:0px;
-				right:0px;
-				top:0px;
-				bottom: 0px;
-				position: absolute;
-				background-color: white;
-			}
-			.splitdroparea {
-				z-index:10000;
-				background: rgba(0, 0, 0, 0.05);
-				position: absolute;
-				pointer-events:none;
-				box-sizing border-box;
-				cursor: default;
-			}
-			.window-content {
-				position: absolute;
-				top:17px;
-				left:0px;
-				right:0px;
-				bottom:0px;
-				overflow: auto;
-			}
-
-			.window-header {
-				height:16px;
-				background-color: white;
-				border: 1px solid #dedede;
-    			box-shadow: 0 -1px 0 0 #dedede inset, 0 1px 0 0 transparent inset, 0 1px 0 transparent;
-    			position: absolute;
-				left:0px;
-				right:0px;
-				top:0px;
-				overflow-x: hidden;
-				overflow-y: hidden;
-				flex-direction: row;
-			}
-			.window-header div {
-				position: relative;
-				float:left;
-				min-width: 97px;
-				margin: 0 20px;
-				padding: 0 10px;
-				background-color: white;
-				font-size: 11px;
-				cursor:pointer;
-			}
-			.window-header div.active {
- 				background-color: #DFDFDF;
-			}			
-			.window-header div:hover {
-				transition: background-color 0.3s ease;
-				background-color: #DFDFDF;
-			}
-
-[draggable] {
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-  /* Required to make elements draggable in old WebKit */
-  -khtml-user-drag: element;
-  -webkit-user-drag: element;
-}
-
-/*
- *  STYLE 3
- */
-
-::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
-}
-
-::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: #F5F5F5;
-}
-
-::-webkit-scrollbar-thumb
-{
-	background-color: #000000;
-}
-
-		</style>
-	</head>
-	<body>
-		<!--div class="container-flud">
-			<hbox>
-				<window><pane caption="Test A"><div>A</div></pane></window>
-				<vbox>
-					<window><pane caption="Test B"><div>B</div></pane></window>
-					<hbox one-min-size="100">
-						<window>
-							<pane caption="Test 1"><div>Pane 1</div></pane>
-							<pane caption="Test 2"><div>Pane 2</div></pane>
-							<pane caption="Test 3">
-							<div >
-							<div class="container" style="max-width:320px; width:320px;  display: inline-block;    vertical-align:top; margin: 15px; height:568px; max-height:568px">
-								<div class="row">
-									<div class="col-xs-12 col-md-6">Test</div><div class="col-md-6 col-xs-12">Test2</div>
-								</div>
-							</div>
-							</div>
-							</pane>
-						</window>
-						<window><pane caption="Test C"><div>C
-							<div ui-draggable ui-drag-format="application/x-lx-window-pane" ui-drag-data='{"uri":"http://www.aftonbladet.se"}'>Aftonbladet</div>
-						</div></pane></window>
-					</hbox>
-				</vbox>
-			</hbox>	
-		</div-->
-		<div class="container-fluid">
-			<vbox>
-				<window>
-					<pane caption="Test A"><div>A</div></pane>
-					<pane caption="Test 1"><div>Pane 1</div></pane>
-					<pane caption="Test 2"><div>Pane 2</div></pane>				
-				</window>
-				<window>
-					<pane caption="Test A"><div>A</div>
-						<div ui-draggable ui-drag-format="application/x-lx-window-pane" ui-drag-data='{"uri":"http://www.aftonbladet.se"}'>Aftonbladet</div>
-					</pane>
-				</window>
-			</vbox>
-		</div>		
-		<script type="text/javascript">
-			angular.module('myApp', ['ui.box', 'ui.winwin']).run(function(paneResolverService) {
-				console.log(paneResolverService);
-				paneResolverService.addResolver(function(qry) {
-					if(qry.uri) {
-						var parser = document.createElement('a');
-						parser.href = qry.uri;
-						if(parser.protocol === 'http:' || parser.protocol === 'https:') {
-							return angular.element('<pane caption="' + parser.hostname + '"><iframe src="' + qry.uri +'" width="100%" height="100%"></pane>');
-						}
-					}
-				});
-			});
-		</script>
-	</body>
+<body>
+  <vbox>
+    <window>
+      <pane caption="Tab 1"><div>Tab Content 1</div></pane>
+      <pane caption="Tab 2"><div>Tab Content 2</div></pane>
+      <pane caption="Tab 3"><div>Tab Content 3</div></pane>
+    </window>
+    <window>
+      <pane caption="Test A">
+        <div>A</div>
+        <div ui-draggable
+             ui-drag-format="application/x-lx-window-pane"
+             ui-drag-data='{"uri":"http://www.aftonbladet.se"}'>Aftonbladet</div>
+      </pane>
+    </window>
+  </vbox>
+</body>
 </html>
