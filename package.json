@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify test/app.js > test/bundle.js",
+    "build-sass": "node-sass --include-path ./node_modules css/winwin.scss -o css/winwin.css",
+    "watch-sass": "node-sass --include-path ./node_modules -w css/winwin.scss -o css",
+    "build": "npm run build-sass && browserify test/app.js > test/bundle.js",
     "watch": "watchify test/app.js -o test/bundle.js -dv"
   },
   "author": "Andreas Karlsson",
@@ -13,6 +15,7 @@
     "browserify": "^9.0.3",
     "browserify-shim": "^3.8.3",
     "dragged": "^0.1.0",
+    "splitbox": "0.0.2",
     "watchify": "^2.4.0"
   },
   "browserify": {
@@ -28,5 +31,9 @@
     "jquery": {
       "exports": "$"
     }
+  },
+  "devDependencies": {
+    "mathsass": "^0.9.5",
+    "node-sass": "^3.4.2"
   }
 }
