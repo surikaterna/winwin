@@ -31,12 +31,17 @@ $win-header-padding-around: 4px;
     .pane {
       height: 100%;
     }
+
+    iframe {
+      border: 0;
+    }
   }
 
   .window-header {
     background-color: $win-header-bg;
     border: 0;
     box-sizing: border-box;
+    font-size: 0;
     height: $header-height;
     left: 0;
     overflow: hidden;
@@ -44,6 +49,7 @@ $win-header-padding-around: 4px;
     position: absolute;
     right: 0;
     top: 0;
+    white-space: nowrap;
 
     &:before {
       background: linear-gradient(to top, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
@@ -61,7 +67,7 @@ $win-header-padding-around: 4px;
       border-radius: 2px 2px 0 0;
       color: $tab-text-color;
       cursor: pointer;
-      float: left;
+      display: inline-block;
       font-size: 13px;
       height: $header-height - $win-header-padding-top;
       line-height: $header-height - $win-header-padding-top;
