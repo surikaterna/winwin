@@ -1,0 +1,33 @@
+.splitbox {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0; }
+  .splitbox .splitboxbox {
+    overflow: hidden;
+    position: absolute; }
+  .splitbox .splitter {
+    background-color: #dedede;
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 999; }
+    .splitbox .splitter.horizontal {
+      cursor: ns-resize;
+      height: 1px;
+      top: 50%;
+      width: 100%; }
+      .splitbox .splitter.horizontal .splitter-mouse-trap {
+        height: 9px;
+        margin-top: -4px;
+        width: 100%; }
+    .splitbox .splitter.vertical {
+      cursor: ew-resize;
+      height: 100%;
+      left: 50%;
+      width: 1px; }
+      .splitbox .splitter.vertical .splitter-mouse-trap {
+        height: 100%;
+        margin-left: -4px;
+        width: 9px; }
+

@@ -1,0 +1,75 @@
+.window {
+  background-color: #fff;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0; }
+  .window .window-content {
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: absolute;
+    right: 0;
+    top: 32px; }
+    .window .window-content .pane {
+      height: 100%; }
+    .window .window-content iframe {
+      border: 0; }
+  .window .window-header {
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 0;
+    box-sizing: border-box;
+    font-size: 0;
+    height: 32px;
+    left: 0;
+    overflow: hidden;
+    padding: 0 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    white-space: nowrap; }
+    .window .window-header:before {
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.1), transparent);
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 6px;
+      left: 0;
+      position: absolute;
+      right: 0; }
+    .window .window-header .tab {
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 2px 2px 0 0;
+      color: #000;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 13px;
+      height: 28px;
+      line-height: 28px;
+      margin-right: 3px;
+      margin-top: 4px;
+      min-width: 90px;
+      padding: 0 8px;
+      position: relative; }
+      .window .window-header .tab.active {
+        background-color: #fff; }
+
+.splitdroparea {
+  background: rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  cursor: default;
+  pointer-events: none;
+  position: absolute;
+  z-index: 10000; }
+
+[draggable] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -khtml-user-drag: element;
+  -webkit-user-drag: element; }
+
+[draggable='true'] {
+  cursor: move; }
