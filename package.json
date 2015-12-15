@@ -1,6 +1,6 @@
 {
   "name": "winwin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "browserify": "^9.0.3",
     "browserify-shim": "^3.8.3",
     "dragged": "^0.1.0",
-    "splitbox": "0.0.2",
+    "splitbox": "0.0.4",
     "watchify": "^2.4.0"
   },
   "browserify": {
