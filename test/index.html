@@ -16,12 +16,46 @@
   </style>
 
   <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-sanitize.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular-sanitize.min.js"></script>
+
+  <script src="https://rawgithub.com/siddii/angular-timer/master/dist/angular-timer.min.js"></script>
+  <script src="https://rawgithub.com/EvanHahn/HumanizeDuration.js/master/humanize-duration.js"></script>
+  <script src="https://rawgithub.com/moment/moment/develop/min/moment.min.js"></script>
   <script src="bundle.js"></script>
 
   <script type="text/javascript">
-    angular.module('myApp', ['ui.winwin']).run(function(paneResolverService) {
+    var module = angular.module('myApp', ['ui.winwin', 'timer']);
+    module.controller('TodosController', ['$scope', function ($scope) {
+    var counter = 0;
+    console.log("CONTROLLER");
+    $scope.todos = [
+        {
+            name: 'David',
+        },
+        {
+            name: 'Tina',
+        },
+        {
+            name: 'Michelle',
+        }
+    ];
+
+    $scope.addTodo = function () {
+        counter++;
+        $scope.todos.push({
+            name: 'New Todo' + counter,
+        });
+    };
+}]);
+module.directive('myIsolatedScope', function () {
+    return {
+        scope: {param:"@"},
+        controller: 'TodosController',
+        template: '<div ng-repeat="todo in todos">{{todo.name}}</div><button ng-click="addTodo()">Add{{param}}</button>'
+    };
+});    
+    module.run(function(paneResolverService) {
       paneResolverService.addResolver(function(qry) {
         if (qry.uri) {
           var parser = document.createElement('a');
@@ -38,9 +72,14 @@
 <body>
   <vbox>
     <window>
-      <pane caption="Tab 1"><div>Tab Content 1</div></pane>
-      <pane caption="Tab 2"><div>Tab Content 2</div></pane>
-      <pane caption="Tab 3"><div>Tab Content 3</div></pane>
+            <pane caption="Tab 1"><div>Tab Content 1<br/><my-isolated-scope param="1"/></div></pane>
+      <pane caption="Tab 1"><div>Tab Content 1<br/><timer>{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer></div></pane>
+
+      <pane caption="Tab 2"><div>Tab Content 2<br/><timer>{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer></div></pane>
+      <pane caption="Tab 3"><div>Tab Content 3<br/><timer>{{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer></div></pane>
+      
+            <pane caption="Tab 2"><div>Tab Content 2<br/><my-isolated-scope param="2"/></div></pane>
+            <pane caption="Tab 3"><div>Tab Content 3<br/><my-isolated-scope param="3"/></div></pane>
     </window>
     <window>
       <pane caption="Test A">
