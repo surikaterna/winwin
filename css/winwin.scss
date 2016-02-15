@@ -1,0 +1,112 @@
+@import 'luminance';
+
+$header-height:      32px;
+$tab-width:          90px;
+$tab-spacing:        3px;
+$win-bg:             #fff;
+$selected-tab-bg:    #fff;
+$win-header-bg:      rgba(0, 0, 0, .4);
+$tab-bg:             rgba(255, 255, 255, .4);
+$tab-text-color:     if(luminance($win-bg) > .5, #000, #fff);
+$split-drop-area-bg: rgba(0, 0, 0, .05);
+$win-header-padding-top: 4px;
+$win-header-padding-around: 4px;
+
+.window {
+  background-color: $win-bg;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  .window-content {
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: absolute;
+    right: 0;
+    top: $header-height;
+
+    .pane {
+      height: 100%;
+    }
+
+    iframe {
+      border: 0;
+    }
+  }
+
+  .window-header {
+    background-color: $win-header-bg;
+    border: 0;
+    box-sizing: border-box;
+    font-size: 0;
+    height: $header-height;
+    left: 0;
+    overflow: hidden;
+    padding: 0 $win-header-padding-around;
+    position: absolute;
+    right: 0;
+    top: 0;
+    white-space: nowrap;
+
+    &:before {
+      background: linear-gradient(to top, rgba(0, 0, 0, .1), rgba(0, 0, 0, 0));
+      bottom: 0;
+      content: '';
+      display: block;
+      height: 6px;
+      left: 0;
+      position: absolute;
+      right: 0;
+    }
+
+    .tab {
+      background-color: $tab-bg;
+      border-radius: 2px 2px 0 0;
+      color: $tab-text-color;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 13px;
+      height: $header-height - $win-header-padding-top;
+      line-height: $header-height - $win-header-padding-top;
+      margin-right: $tab-spacing;
+      margin-top: $win-header-padding-top;
+      min-width: $tab-width;
+      padding: 0 8px;
+      position: relative;
+
+      &.active {
+        background-color: $selected-tab-bg;
+      }
+
+      &:hover {}
+    }
+  }
+
+}
+
+.splitdroparea {
+  background: $split-drop-area-bg;
+  box-sizing: border-box;
+  cursor: default;
+  pointer-events: none;
+  position: absolute;
+  z-index: 10000;
+}
+
+[draggable] {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  // Required to make elements draggable in old WebKit
+  -khtml-user-drag: element;
+  -webkit-user-drag: element;
+}
+
+[draggable='true'] {
+  cursor: move;
+}
+
